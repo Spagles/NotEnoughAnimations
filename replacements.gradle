@@ -1,0 +1,5 @@
+stonecutter {
+    replacements.string(current.parsed >= "26.2") {
+        replace("EntityType.", "EntityTypes.")
+    }
+}
