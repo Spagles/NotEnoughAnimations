@@ -1,5 +1,6 @@
 package dev.tr7zw.notenoughanimations.mixins;
 
+import net.minecraft.client.renderer.chunk.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,16 +40,23 @@ import org.joml.*;
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
-    @Inject(method = "renderLevel", at = @At("HEAD"))
-    //? if >= 26.0 {
+    @Inject(method = /*? >= 26.2 {*/ "render" /*?} else {*/ /*"renderLevel" *//*?}*/, at = @At("HEAD"))
+    //? if >= 26.2 {
 
-    public void renderLevel(final GraphicsResourceAllocator resourceAllocator, final DeltaTracker deltaTracker,
+    public void render(final GraphicsResourceAllocator resourceAllocator, final DeltaTracker deltaTracker,
+            final boolean renderOutline, final net.minecraft.client.renderer.state.level.CameraRenderState cameraState,
+            final Matrix4fc modelViewMatrix, final com.mojang.blaze3d.buffers.GpuBufferSlice terrainFog,
+            final Vector4f fogColor, final boolean shouldRenderSky, CallbackInfo ci) {
+        float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(false);
+        //? } else if >= 26.0 {
+
+        /*public void renderLevel(final GraphicsResourceAllocator resourceAllocator, final DeltaTracker deltaTracker,
             final boolean renderOutline, final net.minecraft.client.renderer.state.level.CameraRenderState cameraState,
             final Matrix4fc modelViewMatrix, final com.mojang.blaze3d.buffers.GpuBufferSlice terrainFog,
             final Vector4f fogColor, final boolean shouldRenderSky,
             final net.minecraft.client.renderer.chunk.ChunkSectionsToRender chunkSectionsToRender, CallbackInfo ci) {
         float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(false);
-        //? } else if >= 1.21.9 {
+        *///? } else if >= 1.21.9 {
         /*
         public void renderLevel(GraphicsResourceAllocator graphicsResourceAllocator, DeltaTracker deltaTracker, boolean bl,
             Camera camera, Matrix4f matrix4f, Matrix4f matrix4f2, Matrix4f matrix4f3,

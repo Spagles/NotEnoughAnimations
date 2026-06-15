@@ -13,7 +13,7 @@ import net.minecraft.client.model.player.*;
 import net.minecraft.client.model.*;
 *///? }
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.phys.AABB;
@@ -39,7 +39,7 @@ public class HugAnimation extends BasicAnimation {
         AABB aABB = entity.getBoundingBox().expandTowards(vec32.scale(d)).inflate(1.0D, 1.0D, 1.0D);
         EntityHitResult entHit = ProjectileUtil.getEntityHitResult(entity, vec3, vec33, aABB, en -> (!en.isSpectator()),
                 d);
-        if (entHit != null && (entHit.getEntity().getType() == EntityType.PLAYER)) {
+        if (entHit != null && (entHit.getEntity().getType() == EntityTypes.PLAYER)) {
             AbstractClientPlayer otherPlayer = (AbstractClientPlayer) entHit.getEntity();
             double dif = otherPlayer.getY() - entity.getY();
             if (otherPlayer.isCrouching() && Math.abs(dif) < 0.3) { // Making sure they are about on the same height

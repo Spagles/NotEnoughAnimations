@@ -16,7 +16,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -46,8 +46,8 @@ public class PetAnimation extends BasicAnimation {
         AABB aABB = entity.getBoundingBox().expandTowards(vec32.scale(d)).inflate(1.0D, 1.0D, 1.0D);
         EntityHitResult entHit = ProjectileUtil.getEntityHitResult(entity, vec3, vec33, aABB, en -> (!en.isSpectator()),
                 d);
-        if (entHit != null && (entHit.getEntity().getType() == EntityType.WOLF
-                || entHit.getEntity().getType() == EntityType.CAT)) {
+        if (entHit != null && (entHit.getEntity().getType() == EntityTypes.WOLF
+                || entHit.getEntity().getType() == EntityTypes.CAT)) {
             TamableAnimal pet = (TamableAnimal) entHit.getEntity();
             double dif = pet.getY() - entity.getY();
             if (Math.abs(dif) < 0.6) { // Making sure they are about on the same height
