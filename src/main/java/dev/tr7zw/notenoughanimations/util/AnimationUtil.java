@@ -179,12 +179,9 @@ public class AnimationUtil {
     }
 
     public static void minMaxHeadRotation(Player livingEntity, PlayerModel model) {
-        float value = legacyWrapDegrees(model.head.yRot);
-        float min = legacyWrapDegrees(model.body.yRot - MathUtil.HALF_PI);
-        float max = legacyWrapDegrees(model.body.yRot + MathUtil.HALF_PI);
-        value = Math.min(value, max);
-        value = Math.max(value, min);
-        setHeadYRot(model, value);
+        float diff = wrapDegrees(model.head.yRot - model.body.yRot);
+        diff = Mth.clamp(diff, -MathUtil.HALF_PI, MathUtil.HALF_PI);
+        setHeadYRot(model, model.body.yRot + diff);
     }
 
     public static void setHeadYRot(PlayerModel model, float value) {
@@ -229,14 +226,16 @@ public class AnimationUtil {
         float wrappedStart = wrapDegrees(start);
         float wrappedEnd = wrapDegrees(end);
 
-        float difference = wrappedEnd - wrappedStart;
-        float shortestPath = ((difference + MathUtil.PI) % MathUtil.TWO_PI) - MathUtil.PI;
+        float shortestPath = wrapDegrees(wrappedEnd - wrappedStart);
 
         return wrapDegrees(wrappedStart + shortestPath * delta);
     }
 
     public static float wrapDegrees(float angle) {
-        return ((angle + MathUtil.PI) % MathUtil.TWO_PI) - MathUtil.PI;
+        float wrapped = (angle + MathUtil.PI) % MathUtil.TWO_PI;
+        if (wrapped < 0)
+            wrapped += MathUtil.TWO_PI;
+        return wrapped - MathUtil.PI;
     } // despite the name, this returns radians. should probably be renamed - EW
 
     public static float wrapDegrees2(float angle) {
