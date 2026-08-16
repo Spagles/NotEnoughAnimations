@@ -76,7 +76,7 @@ public class PetAnimation extends BasicAnimation {
     @Override
     public void apply(AbstractClientPlayer entity, PlayerData data, PlayerModel model, BodyPart part, float delta,
             float tickCounter) {
-        if (Math.random() < 0.005)
+        if (targetPet != null && Math.random() < 0.005)
             targetPet.handleEntityEvent((byte) 18);
         HumanoidArm arm = part == BodyPart.LEFT_ARM ? HumanoidArm.LEFT : HumanoidArm.RIGHT;
         AnimationUtil.applyArmTransforms(model, arm,
