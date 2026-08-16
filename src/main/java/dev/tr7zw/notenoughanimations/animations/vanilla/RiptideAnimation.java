@@ -26,7 +26,7 @@ public class RiptideAnimation extends BasicAnimation {
 
     @Override
     public BodyPart[] getBodyParts(AbstractClientPlayer entity, PlayerData data) {
-        return BodyPart.values();
+        return BodyPart.VALUES;
     }
 
     @Override
