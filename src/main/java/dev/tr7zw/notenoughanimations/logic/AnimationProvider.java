@@ -54,6 +54,8 @@ public class AnimationProvider {
     private Set<BasicAnimation> basicAnimations = new HashSet<>();
     private Set<BasicAnimation> enabledBasicAnimations = new HashSet<>();
     private Set<PoseOverwrite> enabledPoseOverwrites = new HashSet<>();
+    private BasicAnimation[] enabledBasicAnimationsArray = new BasicAnimation[0];
+    private PoseOverwrite[] enabledPoseOverwritesArray = new PoseOverwrite[0];
     private boolean dumpPrios = false;
 
     public AnimationProvider() {
@@ -63,9 +65,10 @@ public class AnimationProvider {
 
     public void applyAnimations(AbstractClientPlayer entity, PlayerModel model, float delta, float swing) {
         PlayerData playerData = (PlayerData) entity;
-        int[] priorities = new int[BodyPart.values().length];
+        int[] priorities = new int[BodyPart.VALUES.length];
         BasicAnimation[] animation = new BasicAnimation[priorities.length];
-        for (BasicAnimation basicAnimation : enabledBasicAnimations) {
+        for (int j = 0; j < enabledBasicAnimationsArray.length; j++) {
+            BasicAnimation basicAnimation = enabledBasicAnimationsArray[j];
             if (basicAnimation.isValid(entity, playerData)) {
                 int prio = basicAnimation.getPriority(entity, playerData);
                 if (prio > 0) {
@@ -82,7 +85,7 @@ public class AnimationProvider {
         for (int i = 0; i < priorities.length; i++) {
             if (animation[i] != null) {
                 animation[i].prepare(entity, playerData, model, delta, swing);
-                animation[i].apply(entity, playerData, model, BodyPart.values()[i], delta, swing);
+                animation[i].apply(entity, playerData, model, BodyPart.VALUES[i], delta, swing);
             }
         }
         for (int i = 0; i < priorities.length; i++) {
@@ -93,8 +96,8 @@ public class AnimationProvider {
     }
 
     public void preUpdate(AbstractClientPlayer livingEntity, PlayerModel playerModel) {
-        for (PoseOverwrite po : enabledPoseOverwrites) {
-            po.updateState(livingEntity, (PlayerData) livingEntity, playerModel);
+        for (int i = 0; i < enabledPoseOverwritesArray.length; i++) {
+            enabledPoseOverwritesArray[i].updateState(livingEntity, (PlayerData) livingEntity, playerModel);
         }
     }
 
@@ -146,6 +149,8 @@ public class AnimationProvider {
                 }
             }
         }
+        enabledBasicAnimationsArray = enabledBasicAnimations.toArray(new BasicAnimation[0]);
+        enabledPoseOverwritesArray = enabledPoseOverwrites.toArray(new PoseOverwrite[0]);
         if (dumpPrios) {
             List<BasicAnimation> list = new ArrayList<>(basicAnimations);
             list.sort((a, b) -> Integer.compare(a.getPriority(null, null), b.getPriority(null, null)));
