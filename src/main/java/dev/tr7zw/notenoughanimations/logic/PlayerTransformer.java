@@ -151,6 +151,9 @@ public class PlayerTransformer {
         }
         if (timePassed > 50) { // Don't try to interpolate states older than 100ms
             last[offset] = entity.yHeadRot;
+            last[offset + 1] = entity.yHeadRotO;
+            entity.yBodyRot = entity.yHeadRot;
+            entity.yBodyRotO = entity.yHeadRotO;
             return;
         }
         if (Math.abs(AnimationUtil.wrapDegrees2(entity.yHeadRot - last[offset])) > 90f) {
