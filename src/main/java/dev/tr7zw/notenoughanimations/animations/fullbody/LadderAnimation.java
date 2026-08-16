@@ -39,25 +39,19 @@ public class LadderAnimation extends BasicAnimation implements PoseOverwrite {
     @Override
     public boolean isValid(AbstractClientPlayer entity, PlayerData data) {
         if (entity.onClimbable() && !NMSWrapper.onGround(entity) && entity.getLastClimbablePos().isPresent()) {
-            for (Class<? extends Block> blocktype : ladderLikeBlocks) {
-                if (blocktype.isAssignableFrom(
-                        //? if >= 1.18.0 {
+            Block block =
+                    //? if >= 1.18.0 {
 
-                        GeneralUtil.getWorld().getBlockState(entity.getLastClimbablePos().get()).getBlock().getClass()))
+                    GeneralUtil.getWorld().getBlockState(entity.getLastClimbablePos().get()).getBlock();
                     //? } else {
 
-                    // entity.level.getBlockState(entity.getLastClimbablePos().get()).getBlock().getClass()))
+                    // entity.level.getBlockState(entity.getLastClimbablePos().get()).getBlock();
                     //? }
 
-                    return true;
-            }
-            return false;
+            return block instanceof LadderBlock || block instanceof TrapDoorBlock;
         }
         return false;
     }
-
-    private final Set<Class<? extends Block>> ladderLikeBlocks = new HashSet<>(
-            Arrays.asList(LadderBlock.class, TrapDoorBlock.class));
 
     private final BodyPart[] parts = new BodyPart[] { BodyPart.LEFT_ARM, BodyPart.RIGHT_ARM, BodyPart.BODY,
             BodyPart.LEFT_LEG, BodyPart.RIGHT_LEG, BodyPart.HEAD };
