@@ -52,9 +52,12 @@ public class FallingAnimation extends BasicAnimation
         return false;
     }
 
+    private final BodyPart[] parts = new BodyPart[] { BodyPart.LEFT_ARM, BodyPart.RIGHT_ARM, BodyPart.LEFT_LEG,
+            BodyPart.RIGHT_LEG };
+
     @Override
     public BodyPart[] getBodyParts(AbstractClientPlayer entity, PlayerData data) {
-        return BodyPart.values();
+        return parts;
     }
 
     @Override
