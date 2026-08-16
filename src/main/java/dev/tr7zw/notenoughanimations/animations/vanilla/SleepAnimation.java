@@ -27,7 +27,7 @@ public class SleepAnimation extends BasicAnimation {
         return entity.isSleeping();
     }
 
-    private final BodyPart[] bothHands = BodyPart.values();
+    private final BodyPart[] bothHands = BodyPart.VALUES;
 
     @Override
     public BodyPart[] getBodyParts(AbstractClientPlayer entity, PlayerData data) {
