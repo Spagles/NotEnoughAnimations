@@ -23,12 +23,19 @@ import net.minecraft.world.entity.HumanoidArm;
 
 public class ClampCrossbowAnimations extends VanillaProjectileWeaponAnimation {
 
+    private final BodyPart[] arms = new BodyPart[] { BodyPart.LEFT_ARM, BodyPart.RIGHT_ARM };
+
     @Getter
     private final EnumSet<ArmPose> twoHandedAnimations = EnumSet.of(ArmPose.CROSSBOW_HOLD, ArmPose.CROSSBOW_CHARGE);
 
     @Override
     public boolean isEnabled() {
         return NEABaseMod.config.clampCrossbowAnimations;
+    }
+
+    @Override
+    public BodyPart[] getBodyParts(AbstractClientPlayer entity, PlayerData data) {
+        return arms;
     }
 
     @Override
