@@ -31,7 +31,7 @@ public class ElytraAnimation extends BasicAnimation implements PoseOverwrite {
 
     @Override
     public BodyPart[] getBodyParts(AbstractClientPlayer entity, PlayerData data) {
-        return BodyPart.values();
+        return BodyPart.VALUES;
     }
 
     @Override
