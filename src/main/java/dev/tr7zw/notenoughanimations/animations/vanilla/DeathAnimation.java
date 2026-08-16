@@ -27,7 +27,7 @@ public class DeathAnimation extends BasicAnimation {
 
     @Override
     public BodyPart[] getBodyParts(AbstractClientPlayer entity, PlayerData data) {
-        return BodyPart.values();
+        return BodyPart.VALUES;
     }
 
     @Override
