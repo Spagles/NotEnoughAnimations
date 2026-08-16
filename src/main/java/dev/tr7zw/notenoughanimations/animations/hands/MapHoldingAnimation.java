@@ -37,7 +37,7 @@ public class MapHoldingAnimation extends BasicAnimation {
 
     private void bind() {
         compatibleMaps.clear();
-        compatibleMaps.addAll(AnimationUtil.parseItemList(NEAnimationsMod.config.mapHolding));
+        compatibleMaps.addAll(AnimationUtil.parseItemList(NEABaseMod.config.mapHolding));
     }
 
     @Override
